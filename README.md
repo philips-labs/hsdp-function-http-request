@@ -4,6 +4,16 @@ Perform HTTP requests
 
 # Usage
 ```hcl
+module "siderite-backend" {
+  source  = "philips-labs/siderite-backend/cloudfoundry"
+  version = "0.2.0"
+  cf_region   = "eu-west"
+  cf_org_name = "client-your-org"
+  cf_space    = "prod"
+  cf_user     = var.cf_user
+  iron_plan   = "medium-encrypted"
+}
+
 resource "hsdp_function" "request" {
   name = "http-request"
   docker_image = "philipslabs/hsdp-function-http-request:v0.1.0"
