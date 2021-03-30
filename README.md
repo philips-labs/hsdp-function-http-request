@@ -4,7 +4,7 @@ Perform HTTP requests
 
 # Usage
 ```hcl
-module "siderite-backend" {
+module "siderite_backend" {
   source  = "philips-labs/siderite-backend/cloudfoundry"
   version = "0.2.0"
   cf_region   = "eu-west"
