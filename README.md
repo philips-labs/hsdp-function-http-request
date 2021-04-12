@@ -4,9 +4,36 @@ Perform HTTP requests
 
 # Usage
 ```hcl
+terraform {
+  required_providers {
+    hsdp = {
+      source  = "philips-software/hsdp"
+      version = ">= 0.14.0"
+    }
+    cloudfoundry = {
+      source  = "philips-labs/cloudfoundry"
+      version = ">= 0.1300.4"
+    }
+  }
+}
+
+provider "hsdp" {
+}
+
+data "hsdp_config" "cf" {
+  region  = var.cf_region
+  service = "cf"
+}
+
+provider "cloudfoundry" {
+  api_url  = data.hsdp_config.cf.url
+  user     = var.cf_user
+  password = var.cf_password
+}
+
 module "siderite_backend" {
   source  = "philips-labs/siderite-backend/cloudfoundry"
-  version = "0.2.0"
+  version = "0.4.0"
   cf_region   = "eu-west"
   cf_org_name = "client-your-org"
   cf_space    = "prod"
