@@ -8,21 +8,16 @@ terraform {
   required_providers {
     hsdp = {
       source  = "philips-software/hsdp"
-      version = ">= 0.14.0"
+      version = ">= 0.14.2"
     }
     cloudfoundry = {
       source  = "philips-labs/cloudfoundry"
-      version = ">= 0.1300.4"
+      version = ">= 0.1400.0"
     }
   }
 }
 
 provider "hsdp" {
-}
-
-data "hsdp_config" "cf" {
-  region  = var.cf_region
-  service = "cf"
 }
 
 provider "cloudfoundry" {
@@ -31,12 +26,17 @@ provider "cloudfoundry" {
   password = var.cf_password
 }
 
+data "hsdp_config" "cf" {
+  region  = "us-east"
+  service = "cf"
+}
+
 module "siderite_backend" {
   source  = "philips-labs/siderite-backend/cloudfoundry"
   version = "0.4.0"
-  cf_region   = "eu-west"
-  cf_org_name = "client-your-org"
-  cf_space    = "prod"
+  cf_region   = "us-east"
+  cf_org_name = var.cf_org
+  cf_space    = var.cf_space
   cf_user     = var.cf_user
   iron_plan   = "medium-encrypted"
 }
