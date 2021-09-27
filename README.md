@@ -51,13 +51,8 @@ resource "hsdp_function" "request" {
     REQUEST_USERNAME = "r0n"
     REQUEST_PASSWORD = "SwaNs0n"
   }
-  
-  schedule {
-    run_every = "1h"
-  }
-  
+ 
   backend {
-    type = "siderite"
     credentials = module.siderite_backend.credentials
   }
 }
