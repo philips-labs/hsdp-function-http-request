@@ -8,11 +8,10 @@ terraform {
   required_providers {
     hsdp = {
       source  = "philips-software/hsdp"
-      version = ">= 0.14.2"
+      version = ">= 0.20.5"
     }
     cloudfoundry = {
-      source  = "philips-labs/cloudfoundry"
-      version = ">= 0.1400.0"
+      source  = "cloudfoundry-community/cloudfoundry"
     }
   }
 }
