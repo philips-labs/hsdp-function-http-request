@@ -4,10 +4,14 @@ import (
 	"fmt"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/viper"
 )
 
 func main() {
+	listenString := ":8080"
+
 	viper.SetEnvPrefix("request")
 	viper.SetDefault("method", "POST")
 	viper.SetDefault("body", "")
@@ -31,10 +35,25 @@ func main() {
 	}
 	method := viper.GetString("method")
 	url := viper.GetString("url")
-	resp, err := r.Execute(method, url)
-	if err != nil {
-		fmt.Printf("error: %v\n", err)
-		return
+
+	runner := func(c echo.Context) error {
+		resp, err := r.Execute(method, url)
+		if err != nil {
+			fmt.Printf("error: %v\n", err)
+			return err
+		}
+		fmt.Printf("%v\n", resp)
+		return nil
 	}
-	fmt.Printf("%v", resp, err)
+
+	// Echo instance
+	e := echo.New()
+
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.Any("/", runner)
+
+	e.Logger.Fatal(e.Start(listenString))
 }
