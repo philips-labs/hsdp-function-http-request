@@ -37,12 +37,13 @@ func main() {
 	url := viper.GetString("url")
 
 	runner := func(c echo.Context) error {
+		fmt.Printf("%v %v\n", method, url)
 		resp, err := r.Execute(method, url)
 		if err != nil {
 			fmt.Printf("error: %v\n", err)
 			return err
 		}
-		fmt.Printf("%v\n", resp)
+		c.String(resp.StatusCode(), string(resp.Body()))
 		return nil
 	}
 
