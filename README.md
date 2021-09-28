@@ -32,7 +32,8 @@ data "hsdp_config" "cf" {
 
 module "siderite_backend" {
   source  = "philips-labs/siderite-backend/cloudfoundry"
-  version = "0.4.0"
+  version = "0.7.0"
+  
   cf_region   = "us-east"
   cf_org_name = var.cf_org
   cf_space    = var.cf_space
