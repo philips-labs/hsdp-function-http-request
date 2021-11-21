@@ -43,7 +43,7 @@ module "siderite_backend" {
 
 resource "hsdp_function" "request" {
   name = "http-request"
-  docker_image = "philipslabs/hsdp-function-http-request:v0.5.0"
+  docker_image = "philipslabs/hsdp-function-http-request:v0.7.0"
   
   environment = {
     REQUEST_METHOD   = "POST"
