@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/labstack/echo/v4"
@@ -33,6 +35,18 @@ func main() {
 	if body != "" {
 		r = r.SetBody(body)
 	}
+	// Get headers
+	for _, entry := range os.Environ() {
+		parts := strings.Split(entry, "=")
+		if len(parts) < 2 || !strings.HasPrefix(parts[0], "REQUEST_HEADER_") {
+			continue
+		}
+		headerName := strings.Replace(parts[0], "REQUEST_HEADER_", "", 1)
+		canonicalHeader := strings.Replace(headerName, "_", "-", -1)
+		headerValue := parts[1]
+		r = r.SetHeader(canonicalHeader, headerValue)
+	}
+
 	method := viper.GetString("method")
 	url := viper.GetString("url")
 

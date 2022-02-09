@@ -2,13 +2,13 @@
 
 Perform HTTP requests
 
-# Usage
+## Usage
 ```hcl
 terraform {
   required_providers {
     hsdp = {
       source  = "philips-software/hsdp"
-      version = ">= 0.20.5"
+      version = ">= 0.29.0"
     }
     cloudfoundry = {
       source  = "cloudfoundry-community/cloudfoundry"
@@ -58,6 +58,17 @@ resource "hsdp_function" "request" {
 }
 ```
 
-# License
+## Supported environment variables
+
+| Name               | Description                                                                                 | Example                  |
+|--------------------|---------------------------------------------------------------------------------------------|--------------------------|
+| REQUEST_METHOD     | The request method to use                                                                   | `POST`                   |
+| REQUEST_URL        | The URL to use. Can include query params                                                    | https://myapp.io/trigger |
+| REQUEST_USERNAME   | Username to use for Basic Auth                                                              |                          |
+| REQUEST_PASSWORD   | Password to use for Basic Auth                                                              |                          |
+| REQUEST_BODY       | The request Body to use.                                                                    |                          |
+| REQUEST_HEADER_XXX | The request header to use. Where XXX is the header name. Underscores are replaced by dashes |                          |
+
+## License
 
 License is MIT
