@@ -1,4 +1,4 @@
-FROM golang:1.17.3-alpine3.13 as builder
+FROM golang:1.20.2-alpine as builder
 RUN apk add --no-cache git openssh gcc musl-dev
 WORKDIR /src
 COPY go.mod .
@@ -11,7 +11,7 @@ RUN go mod download
 COPY . .
 RUN go build -o server .
 
-FROM philipslabs/siderite:v0.12.2 AS siderite
+FROM ghcr.io/philips-labs/siderite:v0.14.0 AS siderite
 
 FROM alpine:latest
 RUN apk add --no-cache git openssh openssl bash postgresql-client
