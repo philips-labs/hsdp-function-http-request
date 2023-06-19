@@ -11,7 +11,7 @@ RUN go mod download
 COPY . .
 RUN go build -o server .
 
-FROM ghcr.io/philips-labs/siderite:v0.14.0 AS siderite
+FROM ghcr.io/philips-labs/siderite:v0.15.0 AS siderite
 
 FROM alpine:latest
 RUN apk add --no-cache git openssh openssl bash postgresql-client
